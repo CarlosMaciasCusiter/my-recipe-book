@@ -22,7 +22,7 @@ const reviewRoutes = require('./routes/reviews');
 
 const dbURL = 'mongodb://localhost:27017/recipe-book';
 
-mongoose.connect(process.nextTick.DB_URL || dbURL, {
+mongoose.connect(process.env.DB_URL || dbURL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
