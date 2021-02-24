@@ -1,0 +1,115 @@
+<% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylessheets/stars.css">
+
+<style>
+    .carousel-inner > .carousel-item > img {
+        margin: 0 auto;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-10 ">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <% recipe.images.forEach((element, index) => { %>
+                    <button type='button' data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>"
+                        class='<%= index === 0 ? 'active' : ' '%>'
+                        <% if (index === 0) { %>
+                            aria-current='true'
+                        <% } %>
+                        aria-label='Slide <%= index + 1 %> '
+                    >
+                    </button>
+                <% }) %>
+            </div>
+            <div class="carousel-inner">
+                <% recipe.images.forEach((element, index) => { %>
+                    <div class='carousel-item <%= index === 0 ? 'active' : ''%>'>
+                        <img src="<%= element.carousel %>" class="img-fluid w-100" alt="...">
+                    </div>
+                <% }) %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+            
+            <div class="card-body">
+                <h5 class="card-title"><%= recipe.title%> by <%= recipe.author.username %></h5>
+                <p class="card-text"><%= recipe.description%></p>
+            </div>
+            <ul class="card-body">
+                <h5 class="card-title">Ingredients</h5>
+                <% recipe.ingredients.forEach(element => { %>
+                    <li class="list-group-item"><%= element %> </li>
+                <% }) %>
+            </ul>
+            <ol class="card-body">
+                <h5 class="card-title">Directions</h5>
+                <% recipe.instructions.forEach(element => { %>
+                    <li class="list-group-item"><%= element %> </li>
+                <% }) %>
+            </ol>
+            <% if ( currentUser && recipe.author.equals(currentUser._id)) { %>
+                <div class="card-body">
+                    <a class="card-link btn btn-info" href="/recipes/<%=recipe._id%>/edit">Edit</a>
+                    <form class="d-inline" action="/recipes/<%=recipe._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <div class='offset-1 col-10'>
+        <% if (currentUser) { %>
+            <h2>Leave A Review</h2>
+            <form action="/recipes/<%=recipe._id%>/reviews" method="post" class='mb-3 validated-form' novalidate>
+                <fieldset class="starability-basic">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
+                        aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                </fieldset>
+                <div class="mb-3">
+                    <label class="form-label" for="body">Review</label>
+                    <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class='btn btn-success'>Submit</button>
+            </form>
+        <% } %>
+        <% for(let review of recipe.reviews) { %>
+            <div class="card mb-3 ">
+                <div class="card-body">
+                    <h5 class="card-title">Rating: <%= review.author.username %></h5>
+                    <p class="starability-result" data-rating="<%=review.rating%>">
+                      Rated: <%= review.rating %> stars 
+                    </p>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %></h6> -->
+                    <p class="card-text">Review: <%= review.body %></p>
+                    <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                        <form action="/recipes/<%=recipe._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>

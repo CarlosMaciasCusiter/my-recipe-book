@@ -1,0 +1,79 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">
+        <h1 class="text-center">New Recipe</h1>
+        <div class="col-6 offset-3">
+            <form action="/recipes" method="POST" novalidate class='validated-form' enctype="multipart/form-data">
+                <div class="mb-3">
+                    <h5>Title</h5>
+                    <input class="form-control" type="text" id="title" name="recipe[title]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="recipe[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Upload Images</label>
+                    <input type="file" class="form-control" id="formFileMultiple" name="image" multiple required>
+                    <div class="invalid-feedback">
+                        Add an image to your recipe.
+                    </div>
+                </div>
+
+                <div id='newIngredientId' class="mb-1">
+                    <h5 class='d-inline'>Ingredients</h5>
+                    <button type='button' class='d-inline btn mb-1' value='Add Ingredient' onclick="createNewIngredient();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus mb-1" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </button>
+                    <input class='form-control mb-1' type="text" name="recipe[ingredients][]"/>
+                    <div id="dynamicCheckIngredients">
+                    </div>
+                </div>
+                
+                <div id='newDirectionId' class='mb-1'>
+                    <h5 class='d-inline'>Directions</h5>
+                    <button type='button' class='d-inline btn mb-1' value='Add Direction' onclick="createNewInstruction();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus mb-1" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </button>
+                    <div class="mb-1">
+                        <textarea class="form-control" type="text"  name="recipe[instructions][]"
+                            required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Recipe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <a href="/recipes">All Recipes</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <script>
+        function createNewIngredient() {
+        // First create a DIV element.
+        var txtNewInputBox = document.createElement('div');
+        // Then add the content (a new input box) of the element.
+        txtNewInputBox.innerHTML = "<input class='form-control mb-1' type='text' id='newInputBox' name='recipe[ingredients][]'>";
+        // Finally put it where it is supposed to appear.
+        document.getElementById("newIngredientId").appendChild(txtNewInputBox);
+        }
+
+        function createNewInstruction() {
+        var txtNewInputBox = document.createElement('div');
+        txtNewInputBox.innerHTML = "<textarea class='form-control mb-1' id='newInputBox' name='recipe[instructions][]'>";
+        document.getElementById("newDirectionId").appendChild(txtNewInputBox);
+        }
+    </script>
