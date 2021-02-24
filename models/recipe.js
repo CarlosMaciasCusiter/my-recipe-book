@@ -8,7 +8,7 @@ const ImageSchema = new Schema({
 })
 
 ImageSchema.virtual('thumbnail').get(function () {
-    return this.url.replace('/upload', '/upload/w_200,h_200,c_scale');
+    return this.url.replace('/upload', '/upload/w_300,h_200,c_scale');
 })
 
 ImageSchema.virtual('carousel').get(function () {

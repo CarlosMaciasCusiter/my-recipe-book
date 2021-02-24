@@ -1,19 +1,30 @@
 
 <% layout('layouts/boilerplate')%>
 
-
-<div class="container row justify-content-center">
-    <% recipes.forEach(recipe => { %>
-        <div class="card shadow p-1 mx-1 mb-5 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <a href="/recipes/<%=recipe._id%>" class='text-black text-decoration-none'>
-                <h5 class="card-title text-dark "><%= recipe.title %> </h5>
-            </a>
-            <a href="/recipes/<%=recipe._id%>">
-                <img class="card-img" src="<%= recipe.images[0].thumbnail %> " alt="<%= recipe.title %> ">
-            </a>
-            <div class="card-body">
-                <p class="card-text"><%= recipe.description %> </p>
+<style>
+    .card-img-top {
+        width: 100% !important;
+        object-fit: cover;
+    }
+    .no-padding {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+</style>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+        <% recipes.forEach(recipe => { %>
+            <div class="mb-5 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="px-0 card shadow">
+                    <img class="card-img-top" src="<%= recipe.images[0].thumbnail %> " alt="<%= recipe.title %> ">
+                    <div class="card-body">
+                    <a href="/recipes/<%=recipe._id%>" class='justify-content-center ml-2 text-black text-decoration-none'>
+                        <h5 class="card-title text-dark ml-2 "><%= recipe.title %> </h5>
+                    </a>
+                    <p class="card-text"><%= recipe.description %> </p>
+                    </div>
+                </div>
             </div>
-        </div>
-    <% }) %>
+        <% }) %>
+    </div>
 </div>

@@ -49,18 +49,23 @@
                         </div>
                     <% }) %>
                 </div>
-                <div class='mt-2 mb-3 container row'>
-                    <% recipe.images.forEach((img, index) => { %>
-                        <div class="card shadow col-3 ml-1 mb-2 mt-1">
-                                <img class="card-img" src="<%= img.thumbnail %> ">
-                            <div class="card-body mt-1">
-                                <div class='form-check-inline'>
-                                    <input type="checkbox" id="image-<%=index%> " name='deleteImages[]' value='<%=img.filename%>'>
+
+                <div class='mt-2 container d-flex'>
+                    <div class="row">
+                        <% recipe.images.forEach((img, index) => { %>
+                            <div class='col-sm-12 col-md-6 col-lg-4 col-xl-3'>
+                                <div class="px-0 card shadow">
+                                    <img class="card-img" src="<%= img.thumbnail %> ">
+                                    <div class="card-body">
+                                        <div class="form-check-inline">
+                                            <input type="checkbox" id="image-<%=index%>" name="deleteImages[]" value="<%=img.filename%>">
+                                        </div>
+                                        <label for="image-<%=index%>">Delete?</label>
+                                    </div>
                                 </div>
-                                <label for=''>Delete? </label>
                             </div>
-                        </div>
-                    <% }) %>
+                        <% }) %>
+                    </div>
                 </div>
                 <div id="dynamicCheckInstructions">    
                 </div>
