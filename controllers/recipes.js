@@ -44,17 +44,21 @@ module.exports.renderEditForm = async (req, res) => {
     res.render('recipes/edit', { recipe });
 };
 
+
 module.exports.updateRecipe = async (req, res) => {
     const { id } = req.params;
     const recipe = await Recipe.findByIdAndUpdate(id, { ...req.body.recipe });
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     recipe.images.push(...imgs);
     await recipe.save();
-    if (req.body.deleteImages.length >= recipe.images.length){
-        req.flash('error', 'Do not delete all my images');
-        res.redirect('/recipes');
-        return
+    if (req.body.deleteImages){
+        if (req.body.deleteImages.length >= recipe.images.length){
+            req.flash('error', 'Do not delete all my images');
+            res.redirect('/recipes');
+            return
+        }
     }
+
     if (req.body.deleteImages) {
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename);

@@ -4,7 +4,7 @@ const recipes = [
         description: "Shrimp Scampi is an amalgamation of many different traditional Italian preparations of scampi (otherwise known as langoustines, Dublin Bay prawns, or Norway Lobsters). Therefore, there isn’t one correct way in which to make it. Try swapping out the pasta in our recipes for rice, or even just a loaf of crusty bread.",
         ingredients: [
             '2 tsp kosher salt',
-            '1/2 l linhuine pasta',
+            '1/2 l linguine pasta',
             '3 Tbsp unsalted butter',
             '2 Tbsp oliv oil',
             '3 garlic cloves, crushed',
