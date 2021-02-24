@@ -20,9 +20,9 @@ const userRoutes = require('./routes/users');
 const recipeRoutes = require('./routes/recipes');
 const reviewRoutes = require('./routes/reviews');
 
-const dbURL = 'mongodb://localhost:27017/recipe-book';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/recipe-book';
 
-mongoose.connect(process.env.DB_URL || dbURL, {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -51,7 +51,7 @@ app.use(mongoSanitize({
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
 
 const store = MongoDBStore.create({
-    mongoUrl: dbURL,
+    mongoUrl: dbUrl,
     secret,
     touchAfter: 24 * 3600
 });
