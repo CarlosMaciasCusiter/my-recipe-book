@@ -5,8 +5,8 @@ https://shrouded-sands-17932.herokuapp.com/
 
 ## Technologies
 Project is created with:
-* Node.js - backend
-* EJS Embedded JavaScript - frontend
+* Node.js - Backend
+* EJS Embedded JavaScript, Bootsrap 5 - Frontend
 * MongoDB and MongoAtlas - Database
 * Cloudinary - Image hosting
 * Heroku - Website Hosting
